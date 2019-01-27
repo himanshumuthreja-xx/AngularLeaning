@@ -1,0 +1,68 @@
+<h3>----ngIF Start ----</h3>
+<!-- Using *ngIf structural direcive with ng-template. -->
+<div *ngIf="courses.length > 0; then coursesList else noCourses"> </div>
+<ng-template #coursesList>
+  List of Courses.
+</ng-template>
+<ng-template #noCourses>
+  No Courses yet.
+</ng-template>
+
+<!-- 
+  Using hidden property binging.
+  It only hides the element and does not remove the element from DOM as compared to *ngIf. 
+-->
+<div [hidden]="courses.length == 0">
+  List of Courses
+</div>
+<div [hidden]="courses.length > 0">
+  No Courses yet
+</div>
+<h3>----ngIF END ----</h3>
+<hr>
+
+
+
+<h3>----ngFor Start ----</h3>
+<!-- the API name is ngForOf (if you want to learn more, seach this in Angular.io -->
+<button (click)="onAdd()" class="btn btn-primary">Add a new Course</button>
+<!-- Om every Ajax request, ngFor detects the changes and updates the DOM -->
+<ul>
+  <li *ngFor="let course of courses; even as isEven; index as i;">
+    {{course.name}} <span *ngIf="isEven">(EVEN)</span>
+    <button (click)="onRemove(i)" class="btn btn-danger">Remove</button>
+  </li>
+</ul>
+
+<h3>----ngFor END ----</h3>
+<hr>
+
+<h3>----ngClass START ----</h3>
+<span class="glyphicon" [ngClass]="{
+  'glyphicon-star': isSelected,
+  'glyphicon-star-empty': !isSelected
+}" (click)="setFavourite();"
+  style="font-size: 100px;"></span>
+<h3>----ngClass END ----</h3>
+
+<h3>----ngStyle START ----</h3>
+<button [style.backgroundColor]="canSave ? 'blue' : 'gray'" [style.color]="canSave ? 'white' : 'black'"
+  [style.fontWeight]="canSave ? 'bold' : 'normal'" [ngStyle]="{
+    'backgroundColor': canSave ? 'blue' : 'gray',
+    'height' : canSave ? '100px' : '50px',
+'width' : canSave ? '200px' : '100px'
+  }"
+  (click)="setCanSave()">
+  Save
+</button>
+<h3>----ngStyle END ----</h3>
+<hr>
+
+<h3>----Safe Traversal Operator START----</h3>
+<span>{{task.assignee?.name}}</span>
+<h3>----Safe Traversal Operator END----</h3>
+<hr>
+
+<h3>----Custom Directive START----</h3>
+<input type="text" [appInputFormat]="'lowercase'" />
+<h3>----Custom Directive END----</h3>
